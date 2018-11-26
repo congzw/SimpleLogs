@@ -28,7 +28,7 @@ Console.WriteLine(log1 == log2);
 
 ## 部署注意事项：
 
-- 1 注意，为了方便演示使用，[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]已经打在了Log4NetLoggerManager类上面（可根据需要自行调节）
+- 1 注意，为了方便演示使用，[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]已经打在了Log4NetLoggerManager类上面（可根据需要自行调整位置，例如放置到应用程序的入口处）
 - 2 log4net.config放到bin下（如果使用者是Web，使其位于web.config的同目录下即可）
 - 3 放置log4net.dll, DONE！
 
