@@ -12,10 +12,10 @@ namespace SimpleLogs.Simple
             return current >= LogLevelLazy.Value;
         }
 
-        public static string Common_Logs_LogLevel = "Common.Logs.LogLevel";
+        public static string Common_Logs_SimpleLogLevel = "Common.Logs.SimpleLogLevel";
         private static LogLevel TryReadFromConfig()
         {
-            var appSetting = ConfigurationManager.AppSettings[Common_Logs_LogLevel];
+            var appSetting = ConfigurationManager.AppSettings[Common_Logs_SimpleLogLevel];
             if (!string.IsNullOrWhiteSpace(appSetting))
             {
                 LogLevel result;
