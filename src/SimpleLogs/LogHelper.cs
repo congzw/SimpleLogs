@@ -38,7 +38,7 @@ namespace SimpleLogs
             log.Info(message);
         }
 
-        public void Error(object message, Exception exception, Type type)
+        public void Error(object message, Type type, Exception exception)
         {
             var loggerManager = _factory();
             var log = loggerManager.GetLogger(type);

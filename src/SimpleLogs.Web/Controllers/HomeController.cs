@@ -8,11 +8,14 @@ namespace SimpleLogs.Web.Controllers
     {
         public ActionResult Index()
         {
-            LogHelper.Instance.Info("From Home Index", this.GetType());
-            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Info("From Home Index");
+            LogHelper.Instance.Debug("Debug From Home Index", this.GetType());
+            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Debug("Debug From Home Index");
 
-            LogHelper.Instance.Debug("From Home Index", this.GetType());
-            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Debug("From Home Index");
+            LogHelper.Instance.Info("Info From Home Index", this.GetType());
+            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Info("Info From Home Index");
+
+            LogHelper.Instance.Error("Error From Home Index", this.GetType(), new Exception("blah"));
+            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Error("Error From Home Index");
 
             return Content("Home Index");
         }
@@ -25,7 +28,7 @@ namespace SimpleLogs.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogHelper.Instance.Error(ex.Message, ex, typeof(Foo));
+                LogHelper.Instance.Error(ex.Message, typeof(Foo), ex);
             }
             return Content("Home Bad");
         }
