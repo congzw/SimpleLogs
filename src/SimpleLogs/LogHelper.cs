@@ -28,24 +28,21 @@ namespace SimpleLogs
         {
             var loggerManager = _factory();
             var log = loggerManager.GetLogger(type);
-            log.Debug(Prefix + message);
+            log.Debug(message);
         }
 
         public void Info(string message, Type type)
         {
             var loggerManager = _factory();
             var log = loggerManager.GetLogger(type);
-            log.Info(Prefix + message);
+            log.Info(message);
         }
 
         public void Error(object message, Exception exception, Type type)
         {
             var loggerManager = _factory();
             var log = loggerManager.GetLogger(type);
-            log.Error(Prefix + message, exception);
+            log.Error(message, exception);
         }
-
-
-        public string Prefix = "[" + typeof (LogHelper).GuessProjectPrefix() + "] ";
     }
 }

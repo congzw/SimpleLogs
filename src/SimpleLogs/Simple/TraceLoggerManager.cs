@@ -1,29 +1,40 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace SimpleLogs.Simple
 {
     public class TraceLoggerManager : ILoggerManager
     {
-        private readonly ILogger _logger = new TraceLogger();
+        private static readonly IDictionary<string, ILogger> Loggers = new ConcurrentDictionary<string, ILogger>(); 
 
         public ILogger GetLogger<T>()
         {
-            return _logger;
+            return TryGetLogger(typeof(T).FullName);
         }
 
         public ILogger GetLogger(Type type)
         {
-            return _logger;
+            return TryGetLogger(type.FullName);
         }
 
         public ILogger GetLogger(string name)
         {
-            return _logger;
+            return TryGetLogger(name);
         }
 
         public ILogger GetLogger()
         {
-            return _logger;
+            return TryGetLogger(string.Empty);
+        }
+
+        private static ILogger TryGetLogger(string category)
+        {
+            if (!Loggers.ContainsKey(category))
+            {
+                Loggers[category] = new TraceLogger() { Category = category };
+            }
+            return Loggers[category];
         }
     }
 }

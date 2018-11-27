@@ -9,6 +9,11 @@ namespace SimpleLogs.Web.Controllers
         public ActionResult Index()
         {
             LogHelper.Instance.Info("From Home Index", this.GetType());
+            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Info("From Home Index");
+
+            LogHelper.Instance.Debug("From Home Index", this.GetType());
+            LogHelper.Instance.Resolve().GetLogger(this.GetType()).Debug("From Home Index");
+
             return Content("Home Index");
         }
 
