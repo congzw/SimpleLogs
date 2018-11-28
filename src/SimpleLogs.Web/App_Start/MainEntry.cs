@@ -8,7 +8,7 @@ namespace SimpleLogs.Web
     {
         public static void Init()
         {
-            LogHelper.Instance.Init();
+            LogHelper.Resolve().Init();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

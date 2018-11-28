@@ -1,46 +1,45 @@
 ﻿using System;
-using SimpleLogs.Simple;
 
 namespace SimpleLogs
 {
-    public class LogHelper
+    public interface ILogHelper
     {
-        public static LogHelper Instance = new LogHelper();
-        private LogHelper()
+        void Debug(string message, Type type);
+        void Info(string message, Type type);
+        void Error(object message, Type type, Exception exception);
+    }
+    
+    public class LogHelper : ILogHelper
+    {
+        #region for di extensions
+
+        public static readonly LogHelper _instance = new LogHelper();
+        private static Func<ILogHelper> _resolve = () => _instance;
+        public static Func<ILogHelper> Resolve
         {
+            get { return _resolve; }
+            set { _resolve = value; }
         }
 
-        private Func<ILoggerManager> _factory = () => new TraceLoggerManager();
-        public void SetLoggerManager(Func<ILoggerManager> factory)
-        {
-            if (factory == null)
-            {
-                throw new ArgumentNullException();
-            }
-            _factory = factory;
-        }
-        public ILoggerManager Resolve()
-        {
-            return _factory();
-        }
-        
+        #endregion
+
         public void Debug(string message, Type type)
         {
-            var loggerManager = _factory();
+            var loggerManager = this.GetLoggerManager();
             var log = loggerManager.GetLogger(type);
             log.Debug(message);
         }
 
         public void Info(string message, Type type)
         {
-            var loggerManager = _factory();
+            var loggerManager = this.GetLoggerManager();
             var log = loggerManager.GetLogger(type);
             log.Info(message);
         }
 
         public void Error(object message, Type type, Exception exception)
         {
-            var loggerManager = _factory();
+            var loggerManager = this.GetLoggerManager();
             var log = loggerManager.GetLogger(type);
             log.Error(message, exception);
         }
